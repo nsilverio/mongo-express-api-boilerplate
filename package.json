@@ -1,22 +1,14 @@
 {
   "name": "mongo-express-api-boilerplate",
   "version": "1.0.0",
-  "description": "A simple mongo-express-api boilerplate",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nsilverio/mongo-expresponses-api-boilerplate.git"
-  },
-  "author": "Natali Silverio",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nsilverio/mongo-expresponses-api-boilerplate/issues"
-  },
-  "homepage": "https://github.com/nsilverio/mongo-expresponses-api-boilerplate#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
