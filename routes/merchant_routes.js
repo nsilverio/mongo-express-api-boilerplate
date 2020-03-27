@@ -1,19 +1,22 @@
+var ObjectID = require("mongodb").ObjectID
 
 module.exports = function(router, db){
 
-    router.get("/notes/:id", (request, response) => {
+
+      router.get("/merchants/:id", (request, response) => {
         const id = request.params.id
-        const details = { _id: new ObjectID(id) }
-        db.collection("merchant").findOne(details, (err, merchant) => {
+        const details = { _id: new ObjectID(id) };
+        db.collection("merchants").findOne(details, (err, item) => {
           if (err) 
-          response.send({ error: "An error has occurred " + err})
+            response.send({ error: "An error has occurred " + err})
           else 
-          response.send(merchant)
+            response.send(item);
         })
       })
 
-      router.get("/notes", (request, response) => {
-        db.collection("merchant").find({}).toArray((err, merchants) => {
+      
+      router.get("/merchants", (request, response) => {
+        db.collection("merchants").find({}).toArray((err, merchants) => {
             if(err) {
                 return response.status(500).send(err);
             }
@@ -21,22 +24,25 @@ module.exports = function(router, db){
         });
       })
 
-      router.delete("/notes/:id", (request, response) => {
+      router.delete("/merchants/:id", (request, response) => {
         const id = request.params.id
         const details = { _id: new ObjectID(id) }
-        db.collection("merchant").remove(details, (err, note) => {
+        db.collection("merchants").remove(details, (err, merchant) => {
           if (err) 
             response.send({ error: "An error has occurred " + err })
           else 
-            response.send(merchant)
+            response.send('Merchant deleted')
         })
       })
 
-      router.put("/notes/:id", (request, res) => {
+      router.put("/merchants/:id", (request, response) => {
         const id = request.params.id
         const details = { _id: new ObjectID(id) }
-        const note = { text: request.body.body, title: request.body.title }
-        db.collection("merchant").update(details, note, (err, result) => {
+        const merchant = {
+            name: request.body.name,
+            category: request.body.category
+        }
+        db.collection("merchants").update(details, merchant, (err, result) => {
           if (err) {
             response.send({ error: "An error has occurred " + err})
           } else {
@@ -46,11 +52,11 @@ module.exports = function(router, db){
       })
 
     router.post('/merchants', (request, response)=> { 
-        const merchat = {
+        const merchant = {
             name: request.body.name,
-            category: requesrequesttuest.body.category
+            category: request.body.category
         }
-        db.collection('merchants').insert(merchat, (err, result) => {
+        db.collection('merchants').insert(merchant, (err, result) => {
             if(err)
                 response.send({ 'error': 'An error has occurred' })
             else
